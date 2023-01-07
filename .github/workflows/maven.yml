@@ -1,0 +1,37 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package -DskipTests --file pom.xml
+      
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    
+    steps:
+    - name: build and run
+      env: 
+        DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        RUNNER_WORK_PATH: ${{ secrets.RUNNER_WORK_PATH }}
+      run: |
+        sudo cp $RUNNER_WORK_PATH/irostub-config-server/irostub-config-server/target/IrostubConfigServer-0.0.1.jar $DEPLOY_PATH/jars
+        sudo sh $DEPLOY_PATH/run.sh
+        
