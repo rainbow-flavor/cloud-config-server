@@ -20,7 +20,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      working-directory: /root/artifact/jar
+      working-directory: ~/runner
       run: mvn -B package -DskipTests --file pom.xml
 
     - name: copy file
@@ -30,7 +30,7 @@ jobs:
         username: ${{ secrets.MASTER_USERNAME }}
         password: ${{ secrets.MASTER_PASSWORD }}
         port: ${{ secrets.MASTER_PORT }}
-        source: "/root/artifact/jar/IrostubConfigServer/target/IrostubConfigServer-0.0.1.jar"
+        source: "~/runner/IrostubConfigServer/target/IrostubConfigServer-0.0.1.jar"
         target: "${{ secrets.CONFIG_SERVER_PATH }}"
 
 #  deploy:
