@@ -20,7 +20,6 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-#      working-directory: ~/runner
       run: mvn -B package -DskipTests --file pom.xml
 
     - name: copy file
@@ -32,18 +31,20 @@ jobs:
         port: ${{ secrets.MASTER_PORT }}
         source: "./target/IrostubConfigServer-0.0.1.jar"
         target: "${{ secrets.CONFIG_SERVER_PATH }}"
+        #scp dir path deep level 세팅
+        strip_components: 1
 
-#  deploy:
-#    needs: build
-#    name: Delivery and Deploy
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: delivery and deploy
-#        uses: appleboy/ssh-action@v0.1.6
-#        with:
-#          host: ${{ secrets.MASTER_HOST }}
-#          username: ${{ secrets.MASTER_USERNAME }}
-#          password: ${{ secrets.MASTER_PASSWORD }}
-#          port: ${{ secrets.MASTER_PORT }}
-#          script: cd ${{ secrets.CONFIG_SERVER_PATH }} && ${{ secrets.CONFIG_SERVER }}
+  deploy:
+    needs: build
+    name: Delivery and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: delivery and deploy
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.MASTER_HOST }}
+          username: ${{ secrets.MASTER_USERNAME }}
+          password: ${{ secrets.MASTER_PASSWORD }}
+          port: ${{ secrets.MASTER_PORT }}
+          script: cd ${{ secrets.CONFIG_SERVER_PATH }} && ${{ secrets.CONFIG_SERVER }}
         
