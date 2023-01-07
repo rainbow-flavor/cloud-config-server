@@ -46,5 +46,4 @@ jobs:
           username: ${{ secrets.MASTER_USERNAME }}
           password: ${{ secrets.MASTER_PASSWORD }}
           port: ${{ secrets.MASTER_PORT }}
-          script: cd ${{ secrets.CONFIG_SERVER_PATH }} && ${{ secrets.CONFIG_SERVER }}
-        
+          script: ${{ secrets.RUN }}
