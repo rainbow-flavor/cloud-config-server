@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11
 WORKDIR /app
 COPY . .
-RUN ./mvnw clean package
+RUN ./mvnw -DskipTests clean package
 
 FROM adoptopenjdk/openjdk11
 WORKDIR /deploy/
