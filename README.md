@@ -13,3 +13,4 @@ WhaTap 의 cloud monitoring 을 사용하여 Pod 의 상태와 Application 의 �
 [roxy-api-server](https://github.com/rainbow-flavor/roxy-api-server)  
 [gorakulist](https://github.com/rainbow-flavor/GorakuList)  
 [irostub-webhook](https://github.com/rainbow-flavor/irostub-webhook)  
+[whaple-bot](https://github.com/irostub/whaple-bot-v2)  
